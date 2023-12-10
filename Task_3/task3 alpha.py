@@ -42,3 +42,19 @@ def plot_amplitude_frequency_response():
 # Функция для рассчёта фазово-частотной характеристики (ФЧХ)
 def plot_phase_frequency_response():
     frequencies = range(5, 105, 5)
+    phases = []
+    for frequency in frequencies:
+        set_motors_power(frequency)
+        gyro_data, sonar_data = collect_data()
+        # Вычисляем фазу по данным гироскопа и ультразвукового датчика
+        phase = np.arctan2(np.mean(gyro_data), np.mean(sonar_data))
+        phases.append(phase)
+    plt.plot(frequencies, phases)
+    plt.xlabel('Frequency (Hz)')
+    plt.ylabel('Phase')
+    plt.title('Phase-Frequency Response')
+    plt.show()
+
+# Вызываем функции для построения графиков
+plot_amplitude_frequency_response()
+plot_phase_frequency_response()
