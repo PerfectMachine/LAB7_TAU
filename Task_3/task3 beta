@@ -1,0 +1,38 @@
+import ev3dev2.motor as ev3_motor
+import time
+
+# Инициализируем моторы и датчики
+
+# Управление частотой двигателя
+def set_motor_frequency(motor, frequency):
+    motor.duty_cycle_sp = 0
+    motor.run_direct()
+    motor.duty_cycle_sp = frequency
+
+# Получение амплитуды и фазы
+def get_amplitude_and_phase(motor):
+    amplitudes = []
+    phases = []
+
+    frequencies = [10, 20, 30, 40, 50]  # Задайте желаемые частоты
+
+    for frequency in frequencies:
+        set_motor_frequency(motor, frequency)
+        time.sleep(1)  # Дайте двигателю время для достижения новой частоты
+
+        # Измерьте амплитуду и фазу и сохраните их
+        amplitude = ...  # Используйте необходимые методы/датчики ev3dev для измерения амплитуды
+        phase = ...  # Используйте необходимые методы/датчики ev3dev для измерения фазы
+
+        amplitudes.append(amplitude)
+        phases.append(phase)
+
+    return amplitudes, phases
+
+# Пример использования функции get_amplitude_and_phase
+motor = ev3_motor.LargeMotor('outA')  # Измените соответствующий порт в соответствии с вашим настройками
+amplitudes, phases = get_amplitude_and_phase(motor)
+
+# Выведите результаты
+for freq, amp, phase in zip(frequencies, amplitudes, phases):
+    print(f"Frequency: {freq} Hz, Amplitude: {amp}, Phase: {phase}")
