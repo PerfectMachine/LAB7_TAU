@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from ev3dev2.motor import LargeMotor, OUTPUT_A, SpeedPercent
 from math import sin, cos
 import time
